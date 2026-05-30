@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Clock, Smartphone, Sparkles, ShieldCheck, BarChart3, Users } from "lucide-react";
+import { ArrowRight, Clock, Smartphone, Sparkles, ShieldCheck, BarChart3, Users, LogIn } from "lucide-react";
+import { useAuth } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/")({
   head: () => ({
