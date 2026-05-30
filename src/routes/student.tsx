@@ -5,6 +5,8 @@ import { useQueue } from "@/lib/queue-store";
 import { estimatedWaitMinutes, statusLabel, type Ticket } from "@/lib/queue-data";
 import { StatusBadge } from "@/components/StatusBadge";
 import { CardSkeleton } from "@/components/Skeletons";
+import { RequireRole } from "@/components/RequireRole";
+import { useAuth } from "@/lib/auth-store";
 import { Sparkles, LogOut, Clock, Users, History, ChevronRight, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/student")({
@@ -14,7 +16,11 @@ export const Route = createFileRoute("/student")({
       { name: "description", content: "Join the International Office queue and follow your live position." },
     ],
   }),
-  component: StudentPage,
+  component: () => (
+    <RequireRole role="student">
+      <StudentPage />
+    </RequireRole>
+  ),
 });
 
 function StudentPage() {
@@ -53,6 +59,7 @@ function StudentPage() {
         }} />
       ) : (
         <JoinForm
+          defaultName={useAuth.getState().user?.name ?? ""}
           onJoin={(payload) => {
             const t = joinQueue(payload);
             toast.success(`You're in! Your number is ${t.number}.`);
@@ -160,8 +167,8 @@ function Stat({ icon: Icon, label, value }: { icon: typeof Clock; label: string;
   );
 }
 
-function JoinForm({ onJoin }: { onJoin: (p: { studentName: string; studentId: string; reason: string }) => void }) {
-  const [name, setName] = useState("");
+function JoinForm({ onJoin, defaultName = "" }: { onJoin: (p: { studentName: string; studentId: string; reason: string }) => void; defaultName?: string }) {
+  const [name, setName] = useState(defaultName);
   const [id, setId] = useState("");
   const [reason, setReason] = useState("Visa extension");
   const [loading, setLoading] = useState(false);

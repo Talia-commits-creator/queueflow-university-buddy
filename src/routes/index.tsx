@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Clock, Smartphone, Sparkles, ShieldCheck, BarChart3, Users } from "lucide-react";
+import { ArrowRight, Clock, Smartphone, Sparkles, ShieldCheck, BarChart3, Users, LogIn } from "lucide-react";
+import { useAuth } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,6 +26,9 @@ const STATS = [
 ];
 
 function Landing() {
+  const { user } = useAuth();
+  const primaryHref = user ? (user.role === "staff" ? "/staff" : "/student") : "/login";
+  const primaryLabel = user ? (user.role === "staff" ? "Open staff dashboard" : "Open my queue") : "Sign in to continue";
   return (
     <div>
       {/* Hero */}
@@ -42,12 +46,12 @@ function Landing() {
               QueueSmart replaces paper tickets and crowded waiting rooms with a calm, mobile-first experience — backed by AI that predicts wait times and surfaces the quietest hours to visit.
             </p>
             <div className="mt-7 flex flex-col sm:flex-row gap-3">
-              <Link to="/student" className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 font-medium shadow-soft hover:shadow-elevated transition-all hover:-translate-y-0.5">
-                Join the queue
-                <ArrowRight className="h-4 w-4" />
+              <Link to={primaryHref} className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-5 py-3 font-medium shadow-soft hover:shadow-elevated transition-all hover:-translate-y-0.5">
+                {user ? primaryLabel : <><LogIn className="h-4 w-4" /> {primaryLabel}</>}
+                {user && <ArrowRight className="h-4 w-4" />}
               </Link>
-              <Link to="/staff" className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-3 font-medium text-foreground hover:bg-secondary transition-colors">
-                Staff dashboard
+              <Link to="/ethics" className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-3 font-medium text-foreground hover:bg-secondary transition-colors">
+                <ShieldCheck className="h-4 w-4" /> AI ethics &amp; privacy
               </Link>
             </div>
             <dl className="mt-10 grid grid-cols-3 gap-4 max-w-md">

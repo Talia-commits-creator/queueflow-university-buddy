@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ShieldCheck, Lock, MinusCircle, UserCheck, AlertTriangle, Eye } from "lucide-react";
+import { ShieldCheck, Lock, MinusCircle, UserCheck, AlertTriangle, Eye, KeyRound } from "lucide-react";
 
 export const Route = createFileRoute("/ethics")({
   head: () => ({
@@ -41,6 +41,11 @@ const PRINCIPLES = [
     icon: Eye,
     title: "Transparency",
     body: "Every AI-derived value in the app is clearly labeled. Students and staff can see the inputs behind every recommendation.",
+  },
+  {
+    icon: KeyRound,
+    title: "Authenticated access",
+    body: "Every action is tied to a signed-in student or staff account. Role-based permissions prevent unauthorized queue manipulation — only staff can call, skip, or mark students as served, and students can only manage their own ticket.",
   },
 ];
 

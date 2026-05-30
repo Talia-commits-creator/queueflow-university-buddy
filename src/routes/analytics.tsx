@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useQueue } from "@/lib/queue-store";
 import { avgServiceMinutes, peakHoursInsight } from "@/lib/queue-data";
 import { CardSkeleton } from "@/components/Skeletons";
+import { RequireRole } from "@/components/RequireRole";
 import { Sparkles, TrendingUp, Clock4, CalendarDays } from "lucide-react";
 
 export const Route = createFileRoute("/analytics")({
@@ -12,7 +13,11 @@ export const Route = createFileRoute("/analytics")({
       { name: "description", content: "AI-powered analytics: peak hours, congestion patterns, and service performance." },
     ],
   }),
-  component: AnalyticsPage,
+  component: () => (
+    <RequireRole role="staff">
+      <AnalyticsPage />
+    </RequireRole>
+  ),
 });
 
 // Synthetic 24h hourly volume for demo charting
