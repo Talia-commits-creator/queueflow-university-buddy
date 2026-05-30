@@ -59,6 +59,7 @@ function StudentPage() {
         }} />
       ) : (
         <JoinForm
+          defaultName={useAuth.getState().user?.name ?? ""}
           onJoin={(payload) => {
             const t = joinQueue(payload);
             toast.success(`You're in! Your number is ${t.number}.`);
