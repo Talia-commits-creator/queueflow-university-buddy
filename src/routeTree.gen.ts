@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as StaffRouteImport } from './routes/staff'
+import { Route as EthicsRouteImport } from './routes/ethics'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const StudentRoute = StudentRouteImport.update({
 const StaffRoute = StaffRouteImport.update({
   id: '/staff',
   path: '/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EthicsRoute = EthicsRouteImport.update({
+  id: '/ethics',
+  path: '/ethics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnalyticsRoute = AnalyticsRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/ethics': typeof EthicsRoute
   '/staff': typeof StaffRoute
   '/student': typeof StudentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/ethics': typeof EthicsRoute
   '/staff': typeof StaffRoute
   '/student': typeof StudentRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/ethics': typeof EthicsRoute
   '/staff': typeof StaffRoute
   '/student': typeof StudentRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/analytics' | '/staff' | '/student'
+  fullPaths: '/' | '/analytics' | '/ethics' | '/staff' | '/student'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/analytics' | '/staff' | '/student'
-  id: '__root__' | '/' | '/analytics' | '/staff' | '/student'
+  to: '/' | '/analytics' | '/ethics' | '/staff' | '/student'
+  id: '__root__' | '/' | '/analytics' | '/ethics' | '/staff' | '/student'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyticsRoute: typeof AnalyticsRoute
+  EthicsRoute: typeof EthicsRoute
   StaffRoute: typeof StaffRoute
   StudentRoute: typeof StudentRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/staff'
       fullPath: '/staff'
       preLoaderRoute: typeof StaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ethics': {
+      id: '/ethics'
+      path: '/ethics'
+      fullPath: '/ethics'
+      preLoaderRoute: typeof EthicsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/analytics': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
+  EthicsRoute: EthicsRoute,
   StaffRoute: StaffRoute,
   StudentRoute: StudentRoute,
 }
