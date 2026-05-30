@@ -5,6 +5,8 @@ import { useQueue } from "@/lib/queue-store";
 import { estimatedWaitMinutes, statusLabel, type Ticket } from "@/lib/queue-data";
 import { StatusBadge } from "@/components/StatusBadge";
 import { CardSkeleton } from "@/components/Skeletons";
+import { RequireRole } from "@/components/RequireRole";
+import { useAuth } from "@/lib/auth-store";
 import { Sparkles, LogOut, Clock, Users, History, ChevronRight, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/student")({
@@ -14,7 +16,11 @@ export const Route = createFileRoute("/student")({
       { name: "description", content: "Join the International Office queue and follow your live position." },
     ],
   }),
-  component: StudentPage,
+  component: () => (
+    <RequireRole role="student">
+      <StudentPage />
+    </RequireRole>
+  ),
 });
 
 function StudentPage() {
