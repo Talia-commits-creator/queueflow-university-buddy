@@ -5,6 +5,7 @@ import { useQueue } from "@/lib/queue-store";
 import { avgServiceMinutes, congestionScore, type Ticket } from "@/lib/queue-data";
 import { StatusBadge } from "@/components/StatusBadge";
 import { CardSkeleton } from "@/components/Skeletons";
+import { RequireRole } from "@/components/RequireRole";
 import {
   PlayCircle, CheckCircle2, SkipForward, Search, Users, Clock, Activity, Sparkles,
 } from "lucide-react";
@@ -16,7 +17,11 @@ export const Route = createFileRoute("/staff")({
       { name: "description", content: "Manage the International Office queue: call the next student, mark served, and follow live AI insights." },
     ],
   }),
-  component: StaffPage,
+  component: () => (
+    <RequireRole role="staff">
+      <StaffPage />
+    </RequireRole>
+  ),
 });
 
 type Filter = "active" | "completed" | "all";
