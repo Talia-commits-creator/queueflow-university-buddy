@@ -26,6 +26,9 @@ const STATS = [
 ];
 
 function Landing() {
+  const { user } = useAuth();
+  const primaryHref = user ? (user.role === "staff" ? "/staff" : "/student") : "/login";
+  const primaryLabel = user ? (user.role === "staff" ? "Open staff dashboard" : "Open my queue") : "Sign in to continue";
   return (
     <div>
       {/* Hero */}
