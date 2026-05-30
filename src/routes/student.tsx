@@ -167,8 +167,8 @@ function Stat({ icon: Icon, label, value }: { icon: typeof Clock; label: string;
   );
 }
 
-function JoinForm({ onJoin }: { onJoin: (p: { studentName: string; studentId: string; reason: string }) => void }) {
-  const [name, setName] = useState("");
+function JoinForm({ onJoin, defaultName = "" }: { onJoin: (p: { studentName: string; studentId: string; reason: string }) => void; defaultName?: string }) {
+  const [name, setName] = useState(defaultName);
   const [id, setId] = useState("");
   const [reason, setReason] = useState("Visa extension");
   const [loading, setLoading] = useState(false);
