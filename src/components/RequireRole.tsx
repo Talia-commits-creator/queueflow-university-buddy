@@ -16,7 +16,7 @@ export function RequireRole({ role, children }: { role: Role; children: ReactNod
 
   useEffect(() => {
     if (mounted && hydrated && !user) {
-      navigate({ to: "/login", search: { redirect: window.location.pathname } as never });
+      navigate({ to: "/login", search: { redirect: window.location.pathname } });
     }
   }, [mounted, hydrated, user, navigate]);
 
