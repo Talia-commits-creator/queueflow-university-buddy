@@ -1,8 +1,10 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useAuth } from "@/lib/auth-store";
-import { GraduationCap, Loader2, LogIn, ShieldCheck, UserRound, Users } from "lucide-react";
+import { useAuth, type Role } from "@/lib/auth-store";
+import { GraduationCap, Loader2, LogIn, ShieldCheck, UserRound, Users, UserPlus } from "lucide-react";
+
+const roleHome = (role: Role) => (role === "staff" ? "/staff" : "/student");
 
 export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -28,7 +30,8 @@ function LoginPage() {
 
   useEffect(() => {
     if (hydrated && user) {
-      navigate({ to: redirect ?? (user.role === "staff" ? "/staff" : "/student") });
+      const target = redirect && redirect.startsWith(roleHome(user.role)) ? redirect : roleHome(user.role);
+      navigate({ to: target });
     }
   }, [hydrated, user, navigate, redirect]);
 
@@ -44,7 +47,8 @@ function LoginPage() {
         return;
       }
       toast.success(`Welcome, ${res.user.name}`);
-      navigate({ to: redirect ?? (res.user.role === "staff" ? "/staff" : "/student") });
+      const target = redirect && redirect.startsWith(roleHome(res.user.role)) ? redirect : roleHome(res.user.role);
+      navigate({ to: target });
     }, 400);
   };
 
@@ -161,7 +165,14 @@ function LoginPage() {
             </button>
           </div>
 
-          <p className="mt-5 text-[11px] text-muted-foreground text-center">
+          <div className="mt-5 rounded-xl border border-dashed border-border bg-background/50 px-4 py-3 text-center">
+            <p className="text-xs text-muted-foreground">New student?</p>
+            <Link to="/signup" className="inline-flex items-center gap-1.5 mt-0.5 text-sm font-medium text-foreground hover:text-accent transition-colors">
+              <UserPlus className="h-3.5 w-3.5" /> Create a student account
+            </Link>
+          </div>
+
+          <p className="mt-4 text-[11px] text-muted-foreground text-center">
             By signing in you agree to the{" "}
             <Link to="/ethics" className="underline">privacy &amp; AI ethics policy</Link>.
           </p>

@@ -60,6 +60,7 @@ function StudentPage() {
       ) : (
         <JoinForm
           defaultName={useAuth.getState().user?.name ?? ""}
+          defaultId={useAuth.getState().user?.studentId ?? ""}
           onJoin={(payload) => {
             const t = joinQueue(payload);
             toast.success(`You're in! Your number is ${t.number}.`);
@@ -167,9 +168,9 @@ function Stat({ icon: Icon, label, value }: { icon: typeof Clock; label: string;
   );
 }
 
-function JoinForm({ onJoin, defaultName = "" }: { onJoin: (p: { studentName: string; studentId: string; reason: string }) => void; defaultName?: string }) {
+function JoinForm({ onJoin, defaultName = "", defaultId = "" }: { onJoin: (p: { studentName: string; studentId: string; reason: string }) => void; defaultName?: string; defaultId?: string }) {
   const [name, setName] = useState(defaultName);
-  const [id, setId] = useState("");
+  const [id, setId] = useState(defaultId);
   const [reason, setReason] = useState("Visa extension");
   const [loading, setLoading] = useState(false);
 

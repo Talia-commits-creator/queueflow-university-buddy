@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as StaffRouteImport } from './routes/staff'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as EthicsRouteImport } from './routes/ethics'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
@@ -25,6 +26,11 @@ const StudentRoute = StudentRouteImport.update({
 const StaffRoute = StaffRouteImport.update({
   id: '/staff',
   path: '/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/analytics': typeof AnalyticsRoute
   '/ethics': typeof EthicsRoute
   '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/staff': typeof StaffRoute
   '/student': typeof StudentRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/analytics': typeof AnalyticsRoute
   '/ethics': typeof EthicsRoute
   '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/staff': typeof StaffRoute
   '/student': typeof StudentRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/analytics': typeof AnalyticsRoute
   '/ethics': typeof EthicsRoute
   '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/staff': typeof StaffRoute
   '/student': typeof StudentRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/ethics'
     | '/login'
+    | '/signup'
     | '/staff'
     | '/student'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/ethics'
     | '/login'
+    | '/signup'
     | '/staff'
     | '/student'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/ethics'
     | '/login'
+    | '/signup'
     | '/staff'
     | '/student'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   AnalyticsRoute: typeof AnalyticsRoute
   EthicsRoute: typeof EthicsRoute
   LoginRoute: typeof LoginRoute
+  SignupRoute: typeof SignupRoute
   StaffRoute: typeof StaffRoute
   StudentRoute: typeof StudentRoute
 }
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/staff'
       fullPath: '/staff'
       preLoaderRoute: typeof StaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnalyticsRoute: AnalyticsRoute,
   EthicsRoute: EthicsRoute,
   LoginRoute: LoginRoute,
+  SignupRoute: SignupRoute,
   StaffRoute: StaffRoute,
   StudentRoute: StudentRoute,
 }
