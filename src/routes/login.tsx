@@ -30,7 +30,8 @@ function LoginPage() {
 
   useEffect(() => {
     if (hydrated && user) {
-      navigate({ to: redirect ?? (user.role === "staff" ? "/staff" : "/student") });
+      const target = redirect && redirect.startsWith(roleHome(user.role)) ? redirect : roleHome(user.role);
+      navigate({ to: target });
     }
   }, [hydrated, user, navigate, redirect]);
 
@@ -46,7 +47,8 @@ function LoginPage() {
         return;
       }
       toast.success(`Welcome, ${res.user.name}`);
-      navigate({ to: redirect ?? (res.user.role === "staff" ? "/staff" : "/student") });
+      const target = redirect && redirect.startsWith(roleHome(res.user.role)) ? redirect : roleHome(res.user.role);
+      navigate({ to: target });
     }, 400);
   };
 
