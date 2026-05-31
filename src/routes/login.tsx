@@ -1,8 +1,10 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useAuth } from "@/lib/auth-store";
-import { GraduationCap, Loader2, LogIn, ShieldCheck, UserRound, Users } from "lucide-react";
+import { useAuth, type Role } from "@/lib/auth-store";
+import { GraduationCap, Loader2, LogIn, ShieldCheck, UserRound, Users, UserPlus } from "lucide-react";
+
+const roleHome = (role: Role) => (role === "staff" ? "/staff" : "/student");
 
 export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>) => ({
