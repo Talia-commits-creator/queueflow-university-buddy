@@ -165,7 +165,14 @@ function LoginPage() {
             </button>
           </div>
 
-          <p className="mt-5 text-[11px] text-muted-foreground text-center">
+          <div className="mt-5 rounded-xl border border-dashed border-border bg-background/50 px-4 py-3 text-center">
+            <p className="text-xs text-muted-foreground">New student?</p>
+            <Link to="/signup" className="inline-flex items-center gap-1.5 mt-0.5 text-sm font-medium text-foreground hover:text-accent transition-colors">
+              <UserPlus className="h-3.5 w-3.5" /> Create a student account
+            </Link>
+          </div>
+
+          <p className="mt-4 text-[11px] text-muted-foreground text-center">
             By signing in you agree to the{" "}
             <Link to="/ethics" className="underline">privacy &amp; AI ethics policy</Link>.
           </p>
