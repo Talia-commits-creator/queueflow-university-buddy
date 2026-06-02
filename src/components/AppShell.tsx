@@ -1,8 +1,9 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
-import { GraduationCap, LayoutDashboard, Users, BarChart3, ShieldCheck, Info, Menu, X, LogOut, LogIn } from "lucide-react";
+import { GraduationCap, LayoutDashboard, Users, BarChart3, ShieldCheck, Info, Menu, X, LogOut, LogIn, Moon, Sun } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/auth-store";
+import { useTheme } from "@/lib/use-theme";
 import { toast } from "sonner";
 
 type NavItem = { to: string; label: string; icon: typeof Users };
