@@ -112,13 +112,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             </button>
           </div>
 
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
         </div>
 
         {open && (
@@ -171,6 +164,49 @@ export function AppShell({ children }: { children: ReactNode }) {
       <main className="flex-1 page-transition">{children}</main>
 
       <footer className="border-t border-border mt-12">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 text-xs text-muted-foreground flex flex-col sm:flex-row gap-2 justify-between">
+          <span>© {new Date().getFullYear()} QueueSmart — International Office pilot</span>
+          <span>Built for students, designed for staff.</span>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+function ThemeToggleButton({
+  theme,
+  onToggle,
+  ready,
+  compact = false,
+}: {
+  theme: "light" | "dark";
+  onToggle: () => void;
+  ready: boolean;
+  compact?: boolean;
+}) {
+  const isDark = theme === "dark";
+  const label = isDark ? "Switch to light mode" : "Switch to dark mode";
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      title={label}
+      onClick={onToggle}
+      className={cn(
+        "inline-flex items-center justify-center rounded-lg border border-border bg-card text-foreground hover:bg-secondary transition-colors",
+        compact ? "h-9 w-9" : "h-8 w-8"
+      )}
+    >
+      {!ready ? (
+        <span className="h-3.5 w-3.5" />
+      ) : isDark ? (
+        <Sun className="h-4 w-4" />
+      ) : (
+        <Moon className="h-4 w-4" />
+      )}
+    </button>
+  );
+}
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 text-xs text-muted-foreground flex flex-col sm:flex-row gap-2 justify-between">
           <span>© {new Date().getFullYear()} QueueSmart — International Office pilot</span>
           <span>Built for students, designed for staff.</span>
