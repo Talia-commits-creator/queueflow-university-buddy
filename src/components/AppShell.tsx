@@ -207,11 +207,4 @@ function ThemeToggleButton({
     </button>
   );
 }
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 text-xs text-muted-foreground flex flex-col sm:flex-row gap-2 justify-between">
-          <span>© {new Date().getFullYear()} QueueSmart — International Office pilot</span>
-          <span>Built for students, designed for staff.</span>
-        </div>
-      </footer>
-    </div>
-  );
-}
+
