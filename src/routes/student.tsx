@@ -24,7 +24,9 @@ export const Route = createFileRoute("/student")({
 });
 
 function StudentPage() {
-  const { tickets, myTicketId, init, hydrated, joinQueue, leaveQueue, tick } = useQueue();
+  const { tickets, init, hydrated, joinQueue, leaveQueue, tick, getMyTicketId } = useQueue();
+  const user = useAuth((s) => s.user);
+  const userKey = user?.email ?? null;
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -34,7 +36,13 @@ function StudentPage() {
     return () => clearInterval(id);
   }, [init, tick]);
 
-  const myTicket = tickets.find((t) => t.id === myTicketId) ?? null;
+  const myTicketId = getMyTicketId(userKey);
+  const myTicketRaw = tickets.find((t) => t.id === myTicketId) ?? null;
+  // Only treat as "active" if not completed/skipped — otherwise show the join form.
+  const myTicket =
+    myTicketRaw && (myTicketRaw.status === "waiting" || myTicketRaw.status === "approaching" || myTicketRaw.status === "serving")
+      ? myTicketRaw
+      : null;
 
   if (!mounted || !hydrated) {
     return (
@@ -53,22 +61,45 @@ function StudentPage() {
       </header>
 
       {myTicket ? (
-        <ActiveTicket ticket={myTicket} tickets={tickets} onLeave={() => {
-          leaveQueue();
-          toast.success("You've left the queue.");
-        }} />
-      ) : (
-        <JoinForm
-          defaultName={useAuth.getState().user?.name ?? ""}
-          defaultId={useAuth.getState().user?.studentId ?? ""}
-          onJoin={(payload) => {
-            const t = joinQueue(payload);
-            toast.success(`You're in! Your number is ${t.number}.`);
+        <ActiveTicket
+          ticket={myTicket}
+          tickets={tickets}
+          onLeave={() => {
+            if (!userKey) return;
+            leaveQueue(userKey);
+            toast.success("You've left the queue.");
           }}
         />
+      ) : (
+        <>
+          <NotInQueueBanner />
+          <JoinForm
+            defaultName={user?.name ?? ""}
+            defaultId={user?.studentId ?? ""}
+            onJoin={(payload) => {
+              if (!userKey) return;
+              const t = joinQueue({ userKey, ...payload });
+              toast.success(`You're in! Your number is ${t.number}.`);
+            }}
+          />
+        </>
       )}
 
       <HistorySection tickets={tickets} />
+    </div>
+  );
+}
+
+function NotInQueueBanner() {
+  return (
+    <div className="rounded-2xl border border-dashed border-border bg-card/60 px-5 py-4 flex items-center gap-3 animate-fade-in">
+      <span className="grid place-items-center h-9 w-9 rounded-xl bg-secondary text-muted-foreground shrink-0">
+        <Users className="h-4 w-4" />
+      </span>
+      <div className="min-w-0">
+        <p className="text-sm font-medium">Not currently in a queue</p>
+        <p className="text-xs text-muted-foreground">Fill in the form below and tap “Join queue” to get a number.</p>
+      </div>
     </div>
   );
 }
