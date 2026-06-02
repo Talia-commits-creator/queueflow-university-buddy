@@ -30,6 +30,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
   const { user, hydrated, logout } = useAuth();
+  const { theme, toggle: toggleTheme, ready: themeReady } = useTheme();
   const navigate = useNavigate();
 
   useEffect(() => { setOpen(false); }, [pathname]);
@@ -76,6 +77,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </nav>
 
           <div className="hidden md:flex items-center gap-2">
+            <ThemeToggleButton theme={theme} onToggle={toggleTheme} ready={themeReady} />
             {hydrated && user ? (
               <>
                 <div className="text-right leading-tight">
@@ -97,6 +99,17 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <LogIn className="h-3.5 w-3.5" /> Sign in
               </Link>
             ) : null}
+          </div>
+
+          <div className="md:hidden flex items-center gap-1">
+            <ThemeToggleButton theme={theme} onToggle={toggleTheme} ready={themeReady} compact />
+            <button
+              className="p-2 rounded-lg hover:bg-secondary transition-colors"
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
           </div>
 
           <button
