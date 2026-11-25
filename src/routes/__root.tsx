@@ -88,8 +88,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "QueueSmart — Smart queue management for university offices" },
       { name: "twitter:description", content: "QueueSmart digitizes the International Office queue: join from your phone, see your position live, and skip the waiting room." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/77e7ab6d-fb61-4e95-adb5-1d4ea7ef7373/id-preview-5193a17b--91863aa1-b7c4-4e77-a4a5-809db6f519a4.lovable.app-1780146593331.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/77e7ab6d-fb61-4e95-adb5-1d4ea7ef7373/id-preview-5193a17b--91863aa1-b7c4-4e77-a4a5-809db6f519a4.lovable.app-1780146593331.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

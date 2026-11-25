@@ -6,6 +6,10 @@ export const Route = createFileRoute("/about")({
     meta: [
       { title: "About QueueSmart — Capstone project" },
       { name: "description", content: "QueueSmart is a capstone educational-technology project digitizing the International Office queue, combining UX research, AI, and modern web engineering." },
+      { property: "og:title", content: "About QueueSmart — Capstone project" },
+      { property: "og:description", content: "QueueSmart is a capstone educational-technology project digitizing the International Office queue, combining UX research, AI, and modern web engineering." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: AboutPage,

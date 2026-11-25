@@ -6,6 +6,10 @@ export const Route = createFileRoute("/ethics")({
     meta: [
       { title: "AI Ethics & Privacy — QueueSmart" },
       { name: "description", content: "How QueueSmart protects student data and uses AI responsibly: minimization, consent, transparency, and risk mitigation." },
+      { property: "og:title", content: "AI Ethics & Privacy — QueueSmart" },
+      { property: "og:description", content: "How QueueSmart protects student data and uses AI responsibly: minimization, consent, transparency, and risk mitigation." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: EthicsPage,

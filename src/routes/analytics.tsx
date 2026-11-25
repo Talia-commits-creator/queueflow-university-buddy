@@ -11,6 +11,10 @@ export const Route = createFileRoute("/analytics")({
     meta: [
       { title: "Queue Analytics — QueueSmart" },
       { name: "description", content: "AI-powered analytics: peak hours, congestion patterns, and service performance." },
+      { property: "og:title", content: "Queue Analytics — QueueSmart" },
+      { property: "og:description", content: "AI-powered analytics: peak hours, congestion patterns, and service performance." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

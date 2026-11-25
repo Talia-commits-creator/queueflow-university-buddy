@@ -9,6 +9,10 @@ export const Route = createFileRoute("/signup")({
     meta: [
       { title: "Create student account — QueueSmart" },
       { name: "description", content: "Register a QueueSmart student account to join the International Office queue from your phone." },
+      { property: "og:title", content: "Create student account — QueueSmart" },
+      { property: "og:description", content: "Register a QueueSmart student account to join the International Office queue from your phone." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: SignupPage,

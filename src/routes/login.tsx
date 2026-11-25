@@ -7,13 +7,16 @@ import { GraduationCap, Loader2, LogIn, ShieldCheck, UserRound, Users, UserPlus 
 const roleHome = (role: Role) => (role === "staff" ? "/staff" : "/student");
 
 export const Route = createFileRoute("/login")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    redirect: typeof search.redirect === "string" ? search.redirect : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { redirect?: string } =>
+    typeof search['redirect'] === "string" ? { redirect: search['redirect'] } : {},
   head: () => ({
     meta: [
       { title: "Sign in — QueueSmart" },
       { name: "description", content: "Sign in to QueueSmart to access your student or staff dashboard." },
+      { property: "og:title", content: "Sign in — QueueSmart" },
+      { property: "og:description", content: "Sign in to QueueSmart to access your student or staff dashboard." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: LoginPage,

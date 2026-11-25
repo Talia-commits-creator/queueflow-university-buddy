@@ -7,6 +7,10 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "QueueSmart — Skip the waiting room" },
       { name: "description", content: "Digital queue management for the International Office. Join from your phone, watch your position live, and arrive only when it's your turn." },
+      { property: "og:title", content: "QueueSmart — Skip the waiting room" },
+      { property: "og:description", content: "Digital queue management for the International Office. Join from your phone, watch your position live, and arrive only when it's your turn." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Landing,

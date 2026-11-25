@@ -15,6 +15,10 @@ export const Route = createFileRoute("/staff")({
     meta: [
       { title: "Staff Dashboard — QueueSmart" },
       { name: "description", content: "Manage the International Office queue: call the next student, mark served, and follow live AI insights." },
+      { property: "og:title", content: "Staff Dashboard — QueueSmart" },
+      { property: "og:description", content: "Manage the International Office queue: call the next student, mark served, and follow live AI insights." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (
